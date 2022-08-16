@@ -15,8 +15,14 @@ function getAllLocations(db = connection) {
 // TODO: write some more database functions
 function getEventsByDay(day, db = connection) {
   return db('events')
-    .join('locations', 'locations.id', 'events.locations_id')
-    .select()
+    .join('locations', 'events.location_id', 'locations.id')
     .where('day', day)
-    .first()
+    .select(
+      'events.name as eventName',
+      'day',
+      'time',
+      'events.description as description',
+      'locations.name as locationName',
+      'events.id'
+    )
 }

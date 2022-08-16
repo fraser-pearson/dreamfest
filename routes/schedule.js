@@ -38,7 +38,7 @@ router.get('/:day', (req, res) => {
   // }
   db.getEventsByDay(day)
     .then((events) => {
-      res.render('showDay', events)
+      res.render('showDay', { events, day })
     })
     .catch((err) => {
       console.error(err)
