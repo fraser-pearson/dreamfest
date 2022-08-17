@@ -7,6 +7,7 @@ module.exports = {
   getEventsByDay,
   getLocationById,
   updateLocation,
+  addNewEvent,
 }
 
 function getAllLocations(db = connection) {
@@ -41,4 +42,14 @@ function updateLocation(update, db = connection) {
       description: update.description,
     })
     .where('id', update.id)
+}
+
+function addNewEvent(newEvent, db = connection) {
+  return db('events').insert({
+    location_id: newEvent.location_id,
+    day: newEvent.day,
+    time: newEvent.time,
+    name: newEvent.name,
+    description: newEvent.description,
+  })
 }
