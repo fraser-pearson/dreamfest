@@ -6,6 +6,7 @@ module.exports = {
   getAllLocations,
   getEventsByDay,
   getLocationById,
+  updateLocation,
 }
 
 function getAllLocations(db = connection) {
@@ -30,4 +31,14 @@ function getEventsByDay(day, db = connection) {
 
 function getLocationById(locationId, db = connection) {
   return db('locations').select().where('id', locationId).first()
+}
+
+function updateLocation(update, db = connection) {
+  return db('locations')
+    .update({
+      //id: update.id,
+      name: update.name,
+      description: update.description,
+    })
+    .where('id', update.id)
 }

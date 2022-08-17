@@ -23,7 +23,8 @@ router.get('/:id/edit', (req, res) => {
 
   db.getLocationById(id)
     .then((location) => {
-      res.render('editLocation', { location })
+      console.log(location)
+      res.render('editLocation', location)
     })
     .catch((err) => {
       console.error(err)
@@ -37,6 +38,12 @@ router.post('/edit', (req, res) => {
   // const { id, name, description } = req.body
 
   // TODO: Update the location in the database based on its id
-
-  res.redirect('/locations')
+  const viewData = req.body
+  //console.log(viewData)
+  db.updateLocation(viewData)
+    .then(() => res.redirect('/locations'))
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Server error')
+    })
 })
