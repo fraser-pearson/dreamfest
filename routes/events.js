@@ -16,19 +16,25 @@ router.get('/add/:day', (req, res) => {
   }))
 
   // TODO: Replace this with all of the locations in the database
-  const locations = [
-    {
-      id: 1,
-      name: 'TangleStage',
-    },
-    {
-      id: 2,
-      name: 'Yella Yurt',
-    },
-  ]
-
-  const viewData = { locations, days, day }
-  res.render('addEvent', viewData)
+  // const locations = [
+  //   {
+  //     id: 1,
+  //     name: 'TangleStage',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Yella Yurt',
+  //   },
+  // ]
+  db.getAllLocations()
+    .then((locations) => {
+      const viewData = { locations, days, day }
+      res.render('addEvent', viewData)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Server error')
+    })
 })
 
 // POST /events/add
